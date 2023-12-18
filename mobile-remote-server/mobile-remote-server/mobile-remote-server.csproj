@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>mobile_remote_server</RootNamespace>
+    <UserSecretsId>dedef08b-8cdd-4bfb-b88d-6d55102d5eae</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
