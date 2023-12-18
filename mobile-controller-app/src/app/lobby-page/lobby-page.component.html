@@ -1,0 +1,37 @@
+<h1>Lobby</h1>
+
+
+<ng-container  *ngIf="isMobile else computerTemplate">
+    <h1>Connected To: {{roomId}}</h1>
+</ng-container>
+
+
+
+  
+<ng-template #computerTemplate>
+    <h1>Computer detected and Connected To: {{roomId}}</h1>
+
+
+
+    <div *ngIf="controllerConnected else waitingControllerTemplate">
+        <p>Controller is connected</p>
+        <div>
+          <div
+            class="car"
+            [style.transform]="'translateX(' + carPosition.x + 'vw)'"
+          ></div>
+          <p>Alpha: {{ orientationData?.alpha | number: '1.2-2' }}</p>
+          <p>Beta: {{ orientationData?.beta | number: '1.2-2' }}</p>
+          <p>Gamma: {{ orientationData?.gamma | number: '1.2-2' }}</p>
+
+          <p>X: {{ carPosition.x | number: '1.2-2' }}</p>
+          <p>Y: {{ carPosition.y | number: '1.2-2' }}</p>
+
+        </div>
+      </div>
+      <ng-template #waitingControllerTemplate>
+        <p>Waiting for controller connection...</p>
+      </ng-template>
+      
+
+</ng-template>
