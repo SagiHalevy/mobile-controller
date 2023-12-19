@@ -29,6 +29,9 @@ export class HomePageControllerComponent {
     }
   }
 
- 
+  ngOnDestroy() {
+    this.signalRService.removeAllListeners();
+
+  }
 
 }

@@ -28,6 +28,9 @@ export class HomePagePcComponent {
     }
   }
 
-  
+  ngOnDestroy() {
+    this.signalRService.removeAllListeners();
+
+  }
 
 }

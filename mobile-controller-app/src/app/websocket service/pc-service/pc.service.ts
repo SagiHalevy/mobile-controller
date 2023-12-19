@@ -4,8 +4,7 @@ import * as signalR from '@microsoft/signalr';
   providedIn: 'root'
 })
 export class PcService {
-
-  constructor() { }
+  public controllerConnected = false;
   private hubConnection!: signalR.HubConnection;
   startConnection = async ()=> {
     try {
@@ -25,6 +24,9 @@ export class PcService {
   isConnectionEstablished() {
     return this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected;
   }
+
+
+
 
   //listeners
   addOrientationListener = (callback: (orientationData: any) => void) => {
@@ -58,4 +60,18 @@ export class PcService {
   createRoom = () => {
     this.hubConnection.invoke('CreateRoom').catch(err => console.error(err));
   };
+
+
+   // Remove event listeners
+  removeAllListeners = () => {
+    if(this.hubConnection){
+      this.hubConnection.off('ReceiveOrientation'); 
+      this.hubConnection.off('ReceiveRoomId'); 
+      this.hubConnection.off('ReceiveSuccessJoin'); 
+      this.hubConnection.off('ControllerSuccessJoin'); 
+      this.hubConnection.off('ControllerDisconnected'); 
+    }
+  }
+
+
 }

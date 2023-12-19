@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sagi1\\source\\repos\\MyAngularAndAPI\\MyApi\\mobile-remote-server\\mobile-remote-server\\mobile-remote-server.csproj",
+      "projectUniqueName": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\mobile-remote-server.csproj",
       "projectName": "mobile-remote-server",
-      "projectPath": "C:\\Users\\sagi1\\source\\repos\\MyAngularAndAPI\\MyApi\\mobile-remote-server\\mobile-remote-server\\mobile-remote-server.csproj",
+      "projectPath": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\mobile-remote-server.csproj",
       "packagesPath": "C:\\Users\\sagi1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sagi1\\source\\repos\\MyAngularAndAPI\\MyApi\\mobile-remote-server\\mobile-remote-server\\obj\\",
+      "outputPath": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sagi1\\AppData\\Roaming\\NuGet\\NuGet.Config",

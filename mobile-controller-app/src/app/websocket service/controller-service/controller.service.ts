@@ -60,4 +60,12 @@ joinRoom = (roomId: string) => {
 
 
 
+  // Remove event listeners
+  removeAllListeners = () => {
+    if(this.hubConnection){
+      this.hubConnection.off('ReceiveSuccessJoin'); 
+      this.hubConnection.off('RoomCreatorDisconnected'); 
+    }
+  }
+
 }

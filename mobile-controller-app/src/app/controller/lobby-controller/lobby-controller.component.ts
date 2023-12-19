@@ -34,4 +34,10 @@ export class LobbyControllerComponent {
     const orientationData = { alpha, beta, gamma };
     this.signalRService.sendOrientationToServer(orientationData);    
   };
+
+
+  ngOnDestroy() {
+    this.signalRService.removeAllListeners();
+  }
+
 }
