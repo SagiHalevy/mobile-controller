@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add SignalR services to the service collection
 builder.Services.AddSignalR();
-
+    
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>

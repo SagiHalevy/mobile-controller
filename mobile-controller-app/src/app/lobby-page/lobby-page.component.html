@@ -10,9 +10,6 @@
   
 <ng-template #computerTemplate>
     <h1>Computer detected and Connected To: {{roomId}}</h1>
-
-
-
     <div *ngIf="controllerConnected else waitingControllerTemplate">
         <p>Controller is connected</p>
         <div>

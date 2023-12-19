@@ -24,7 +24,7 @@ export class LobbyPageComponent implements OnInit{
   initialBeta = -12; // Set the initial beta value
   deadZoneThreshold = 0.5
   maxSpeed = 7;
-  private lastSentTime: number = 0;
+
 
 
   constructor(private route:ActivatedRoute,private signalRService: SignalRService,private router:Router){}
@@ -41,11 +41,23 @@ export class LobbyPageComponent implements OnInit{
         this.controllerConnected = true;
       })
       this.signalRService.addOrientationListener((orientationData)=>{
+        console.log("goti t");
         this.orientationData = orientationData;
         this.updateCarPositionAndRotation();
       })
+      this.signalRService.addControllerDisconnectedListener(()=>{
+        console.log("controller has disconnected");
+        this.controllerConnected = false;
+      })
     }else{
+      this.signalRService.addRoomCreatorDisconnectedListener(()=>{
+        console.log("room creator has disconnected(Redirecting to home page)");
+        this.router.navigate(['']);
+        
+      })
+      
       window.addEventListener('deviceorientation', this.orientationEventListener);
+
     }
   
   }

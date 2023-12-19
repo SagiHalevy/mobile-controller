@@ -50,10 +50,11 @@ namespace mobile_remote_server
 
         public async Task SendOrientation(object orientationData)
         {
-   
-            await Console.Out.WriteLineAsync("something orieneteiaton");
-            await Console.Out.WriteLineAsync(orientationData.ToString());
-            await Clients.All.SendAsync("ReceiveOrientation", orientationData);
+
+            /* await Console.Out.WriteLineAsync("something orieneteiaton");
+             await Console.Out.WriteLineAsync(orientationData.ToString());*/
+            await Console.Out.WriteLineAsync("send orintiano");
+            await Clients.AllExcept(Context.ConnectionId).SendAsync("ReceiveOrientation", orientationData);
         }
 
 
@@ -62,8 +63,43 @@ namespace mobile_remote_server
             // Log the exception
             Console.WriteLine($"Client disconnected with error: {exception?.Message}");
 
+            // Check if the disconnected user is in any room
+            var roomId = RoomUsers.FirstOrDefault(x => x.Value.Contains(Context.ConnectionId)).Key;
+            await Console.Out.WriteLineAsync(roomId);
+            if (!string.IsNullOrEmpty(roomId))
+            {
+                await Console.Out.WriteLineAsync(RoomUsers[roomId][0]);
+                
+                // If the room is empty, remove it
+                if (RoomUsers[roomId].Count == 0)
+                {
+                    RoomUsers.Remove(roomId);
+                    Console.WriteLine($"Room {roomId} removed due to the creator disconnecting.");
+                }
+                else if (RoomUsers[roomId][0] == Context.ConnectionId)  // Check if the disconnected user is the room creator
+                {
+                    // Disconnect all joiners
+                    foreach (var joinerConnectionId in RoomUsers[roomId])
+                    {
+                        await Clients.Client(joinerConnectionId).SendAsync("RoomCreatorDisconnected");
+                        // Disconnect each joiner
+                        await Groups.RemoveFromGroupAsync(joinerConnectionId, roomId);
+                    }
+
+                    // Remove the room from tracking
+                    RoomUsers.Remove(roomId);
+                    Console.WriteLine($"Room {roomId} removed due to the creator disconnecting, and all joiners were disconnected.");
+                }
+                else // Remove the user from the room
+                {
+                    await Clients.Client(RoomUsers[roomId][0]).SendAsync("ControllerDisconnected");
+                    RoomUsers[roomId].Remove(Context.ConnectionId);
+                }
+            }
+
             await base.OnDisconnectedAsync(exception);
         }
+
 
     }
 }

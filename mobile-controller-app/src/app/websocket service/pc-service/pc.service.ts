@@ -3,13 +3,10 @@ import * as signalR from '@microsoft/signalr';
 @Injectable({
   providedIn: 'root'
 })
-export class SignalRService {
-  
-  constructor() {
+export class PcService {
 
-  }
-  private hubConnection!: signalR.HubConnection
-
+  constructor() { }
+  private hubConnection!: signalR.HubConnection;
   startConnection = async ()=> {
     try {
       this.hubConnection = new signalR.HubConnectionBuilder()
@@ -23,21 +20,13 @@ export class SignalRService {
       throw error; // Re-throw the error to propagate it in the promise chain
     }
   };
-  
-  
+
   // Check if the connection is established
   isConnectionEstablished() {
     return this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected;
   }
 
-
-
-//---Listeners---
-  addMessageListener = (callback: (user: string, message: string) => void) => {
-    this.hubConnection.on('ReceiveMessage', (user, message) => {
-      callback(user, message);
-    });
-  };
+  //listeners
   addOrientationListener = (callback: (orientationData: any) => void) => {
     this.hubConnection.on('ReceiveOrientation', (orientationData) => {
       callback(orientationData);
@@ -63,40 +52,10 @@ export class SignalRService {
       callback();
     });
   };
-  addRoomCreatorDisconnectedListener = (callback: () => void) => {
-    this.hubConnection.on('RoomCreatorDisconnected', () => {
-      callback();
-    });
-  };
 
 
-
-
-  //---Sending to server---
-  sendMessageToServer = (user: string, message: string) => {
-    this.hubConnection.invoke('SendMessage', user, message);
-  };
-  sendOrientationToServer(orientationData: any) {
-    if (this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected) {
-      // Invoke the server method to handle the orientation data
-      this.hubConnection.invoke('SendOrientation', orientationData)
-        .catch((err) => {
-          console.error('Error while sending orientation data:', err);
-        });
-    } else {
-      console.error('Hub connection not established or in an invalid state');
-    }
-  }
- 
+  //sending to the server
   createRoom = () => {
     this.hubConnection.invoke('CreateRoom').catch(err => console.error(err));
   };
-  
-  joinRoom = (roomId: string) => {
-    this.hubConnection.invoke('JoinRoom', roomId).catch(err => console.error(err));
-  };
-
-
-
-  
 }

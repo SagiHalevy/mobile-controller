@@ -19,25 +19,31 @@ export class HomePageComponent {
 
   }
 
+
 //Establish web-socket connection and retrieve room ID from the server
 async createRoom(){
-  await this.signalRService.startConnection();
+  if (!this.signalRService.isConnectionEstablished()) {
+    await this.signalRService.startConnection();
 
-  this.signalRService.addCreateRoomListener((newRoomId) => {
-    this.router.navigate(['lobby', newRoomId]);
-  });
-  
-  this.signalRService.createRoom();
+    this.signalRService.addCreateRoomListener((newRoomId) => {
+      this.router.navigate(['lobby', newRoomId]);
+    });
+    
+    this.signalRService.createRoom();
+  }
 }
 
 //Joining room is for the mobile device
 async joinRoom(){
-  await this.signalRService.startConnection();
-  this.signalRService.addJoinRoomListener((roomId) => {
-    this.router.navigate(['lobby', roomId]);
-    console.log(`Connection Joined to: ${roomId}`);
-  });
-  this.signalRService.joinRoom(this.roomId);
+
+  if (!this.signalRService.isConnectionEstablished()) {
+    await this.signalRService.startConnection();
+    this.signalRService.addJoinRoomListener((roomId) => {
+      this.router.navigate(['lobby', roomId]);
+      console.log(`Connection Joined to: ${roomId}`);
+    });
+    this.signalRService.joinRoom(this.roomId);
+  }
 }
 
 
