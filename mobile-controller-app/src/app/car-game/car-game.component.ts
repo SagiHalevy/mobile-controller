@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Renderer2, OnDestroy, OnInit } from '@angular/core';
 import { PcService } from '../websocket service/pc-service/pc.service';
 import { CommonModule } from '@angular/common';
 
@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './car-game.component.html',
   styleUrl: './car-game.component.css'
 })
-export class CarGameComponent {
-  constructor(public signalRService: PcService){}
+export class CarGameComponent implements OnInit, OnDestroy {
+  constructor(public signalRService: PcService, private renderer: Renderer2){}
 
   orientationData:any;
 
@@ -22,6 +22,7 @@ export class CarGameComponent {
   maxSpeed = 7;
 
   ngOnInit(){
+    this.renderer.addClass(document.body, 'bg-car-game');
     this.signalRService.addOrientationListener((orientationData)=>{
       console.log("orien from cargame");
       this.orientationData = orientationData;
@@ -32,6 +33,13 @@ export class CarGameComponent {
       this.signalRService.controllerConnected = false;
     })
   }
+
+  ngOnDestroy() {
+    this.signalRService.removeAllListeners();
+    this.renderer.removeClass(document.body, 'bg-car-game');
+  }
+
+
   private updateCarPositionAndRotation() {
     // Calculate the relative beta value from the initial orientation
     const relativeBeta = this.orientationData.beta - this.initialBeta;
@@ -49,7 +57,5 @@ export class CarGameComponent {
     this.carPosition.x = Math.max(0, Math.min(this.carPosition.x, this.maxX));
   }
 
-  ngOnDestroy() {
-    this.signalRService.removeAllListeners();
-  }
+
 }

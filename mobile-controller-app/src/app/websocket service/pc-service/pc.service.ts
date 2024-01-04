@@ -9,7 +9,7 @@ export class PcService {
   startConnection = async ()=> {
     try {
       this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://192.168.1.22:5001/orientationHub') 
+        .withUrl('https://192.168.1.24:5001/orientationHub') 
         .build();
   
       await this.hubConnection.start();

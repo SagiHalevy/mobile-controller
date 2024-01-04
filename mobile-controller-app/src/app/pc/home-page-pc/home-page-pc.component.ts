@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Renderer2, OnDestroy, OnInit  } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -11,10 +11,19 @@ import { PcService } from '../../websocket service/pc-service/pc.service';
   templateUrl: './home-page-pc.component.html',
   styleUrl: './home-page-pc.component.css'
 })
-export class HomePagePcComponent {
-  constructor(private signalRService: PcService, private router:Router) {
-   
+export class HomePagePcComponent implements OnInit, OnDestroy {
+  
+  constructor(private signalRService: PcService, private router:Router,private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.renderer.addClass(document.body, 'bg-gradient-home');
   }
+  ngOnDestroy() {
+    this.signalRService.removeAllListeners();
+    this.renderer.removeClass(document.body, 'bg-gradient-home');
+  }
+
+
   //Establish web-socket connection and retrieve room ID from the server
   async createRoom(){
     if (!this.signalRService.isConnectionEstablished()) {
@@ -28,9 +37,5 @@ export class HomePagePcComponent {
     }
   }
 
-  ngOnDestroy() {
-    this.signalRService.removeAllListeners();
-
-  }
 
 }

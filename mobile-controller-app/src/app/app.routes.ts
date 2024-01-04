@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LobbyPageComponent } from './lobby-page/lobby-page.component';
 import { HomePagePcComponent } from './pc/home-page-pc/home-page-pc.component';
 import { HomePageControllerComponent } from './controller/home-page-controller/home-page-controller.component';
 import { LobbyPcComponent } from './pc/lobby-pc/lobby-pc.component';
@@ -8,10 +6,6 @@ import { LobbyControllerComponent } from './controller/lobby-controller/lobby-co
 import { CarGameComponent } from './car-game/car-game.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component:HomePageComponent
-    },
     {
         path: 'pc',
         component:HomePagePcComponent

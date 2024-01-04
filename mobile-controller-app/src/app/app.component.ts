@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
-import { OrientationSendComponent } from './orientation-send/orientation-send.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { HomePagePcComponent } from './pc/home-page-pc/home-page-pc.component';
 import { HomePageControllerComponent } from './controller/home-page-controller/home-page-controller.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet,OrientationSendComponent,HomePageComponent,HomePagePcComponent,HomePageControllerComponent],
+  imports: [CommonModule, RouterOutlet,HomePagePcComponent,HomePageControllerComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

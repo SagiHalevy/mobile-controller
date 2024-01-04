@@ -1,17 +1,31 @@
-<h1>Lobby</h1>
-<h1>Computer detected and Connected To: {{roomId}}</h1>
-<div *ngIf="signalRService.controllerConnected else waitingControllerTemplate">
-    <p>Controller is connected</p>
-    <div>
-      <p>Alpha: {{ orientationData?.alpha | number: '1.2-2' }}</p>
-      <p>Beta: {{ orientationData?.beta | number: '1.2-2' }}</p>
-      <p>Gamma: {{ orientationData?.gamma | number: '1.2-2' }}</p>
+
+<div class="container mt-5 text-center">
+    <!-- Main Heading -->
+    <h1 class="text-center text-primary mb-4">Lobby</h1>
+
+    <!-- Computer Connection Status -->
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Computer detected and Connected To: {{roomId}}</h4>
     </div>
-    <div>
-      <button (click)="startCarGame()">Start Car Game</button>    
+
+    <!-- Controller Connection Status -->
+    <div *ngIf="signalRService.controllerConnected; else waitingControllerTemplate">
+        <div class="alert alert-success" role="alert">
+            <p>Controller is connected</p>
+            <div>
+                <p>Alpha: {{ orientationData?.alpha | number: '1.2-2' }}</p>
+                <p>Beta: {{ orientationData?.beta | number: '1.2-2' }}</p>
+                <p>Gamma: {{ orientationData?.gamma | number: '1.2-2' }}</p>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary btn-lg" (click)="startCarGame()">Start Car Game</button>    
+            </div>
+        </div>
     </div>
-  </div>
-  <ng-template #waitingControllerTemplate>
-    <p>Waiting for controller connection...</p>
-  </ng-template>
-  
+    <ng-template #waitingControllerTemplate>
+        <div class="alert alert-warning" role="alert">
+            <p>Waiting for controller connection...</p>
+        </div>
+    </ng-template>
+</div>
+
