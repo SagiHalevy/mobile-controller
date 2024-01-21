@@ -8,7 +8,9 @@ namespace mobile_remote_server
 
         public async Task CreateRoom() {
 
-            var roomId = Guid.NewGuid().ToString("N");
+            Random rnd = new Random();
+            //var roomId = Guid.NewGuid().ToString("N");
+            var roomId = rnd.Next(1, 100).ToString();
             await Console.Out.WriteLineAsync($"Room Created: {roomId}");
 
             await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
@@ -58,7 +60,7 @@ namespace mobile_remote_server
         }
 
 
-        public override async Task OnDisconnectedAsync(Exception exception)
+        public override async Task OnDisconnectedAsync(Exception? exception)
         {
             // Log the exception
             Console.WriteLine($"Client disconnected with error: {exception?.Message}");

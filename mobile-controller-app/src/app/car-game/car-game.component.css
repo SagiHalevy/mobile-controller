@@ -1,7 +1,14 @@
 .car {
-  width: 50px;
-    height: 30px;
-    background-color: red;
+  background-image: url('/assets/media/newcar.png');
+     width: 120px;
+    height: 120px;
+    /* background-color: red;  */
     position: absolute;
     transform-origin: center bottom;
+}
+.obstacle {
+  width: 20px;
+  height: 20px;
+  background-color: blue;
+  position: absolute;
 }
