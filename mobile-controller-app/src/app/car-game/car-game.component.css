@@ -1,14 +1,52 @@
 .car {
-  background-image: url('/assets/media/newcar.png');
-     width: 120px;
-    height: 120px;
+    background-image: url('/assets/media/newcarcropped.png');
+    width: 56px;
+    height: 98px;
     /* background-color: red;  */
     position: absolute;
-    transform-origin: center bottom;
+    transform-origin: top left;
 }
 .obstacle {
   width: 20px;
   height: 20px;
   background-color: blue;
   position: absolute;
+  transform-origin: top left;
+}
+
+/* car-game.component.css */
+
+
+
+.game-over-container {
+  text-align: center;
+  background-color: #ffffff94;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.return-button,
+.play-again-button {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.return-button:hover,
+.play-again-button:hover {
+  background-color: #45a049;
 }

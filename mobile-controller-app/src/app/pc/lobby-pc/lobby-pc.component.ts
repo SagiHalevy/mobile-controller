@@ -33,7 +33,6 @@ export class LobbyPcComponent  implements OnInit, OnDestroy  {
       this.signalRService.controllerConnected = false;
     })
     this.signalRService.addOrientationListener((orientationData)=>{
-      console.log("orien");
       this.orientationData = orientationData; 
     })
 
@@ -44,9 +43,8 @@ export class LobbyPcComponent  implements OnInit, OnDestroy  {
   }
 
 
-
   startCarGame(){
-    this.router.navigate(['car-game']);
+    this.router.navigate(['car-game',this.roomId]);
   }
 
 

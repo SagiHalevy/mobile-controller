@@ -23,7 +23,7 @@ export const routes: Routes = [
         component:LobbyControllerComponent
     },
     {
-        path: 'car-game',
+        path: 'car-game/:roomId',
         component:CarGameComponent
     }
 ];
