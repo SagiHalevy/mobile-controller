@@ -17,3 +17,8 @@
   overflow-y: hidden;
 }
 
+body, html {
+  height: 100vh;
+  margin: 0;
+}
+

@@ -15,9 +15,9 @@ export class CarGameComponent implements OnInit, OnDestroy {
 
   roomId:string = '';
   private obstacleUpdateInterval: any;
-  gameOver: boolean = false; // Add a property to track game over state
-  startTime: number = 0;
-  calculatedScore: number | null = null; // Store the calculated score
+  private scoringInterval: any;
+
+  gameOver: boolean = false; // track game-over state
 
   orientationData: any;
   initialBeta = -12; // in my phone, the initial beta rotation is -12 for some reason
@@ -30,10 +30,13 @@ export class CarGameComponent implements OnInit, OnDestroy {
   maxSpeed = 6;
   
   obstacleDimension = {x:20, y:20}
+  obstacleUpdateTime = 30 // change the position of the obstacles every 30ms
   numObstacles=10;
   obstacleMinSpeed = 6;
-  obstacleMaxSpeed = 12;
+  obstacleMaxSpeed = 10;
   obstacles: any[] = []; //container for the obstacles objects that are  reused
+
+  score: number=0;
 
   ngOnInit() {
     this.route.params.subscribe(params => {     
@@ -52,18 +55,13 @@ export class CarGameComponent implements OnInit, OnDestroy {
       this.signalRService.controllerConnected = false;
     });
 
-    // Initialize obstacles
-    this.obstacles = this.generateRandomObstacles();
-    this.obstacleUpdateInterval = setInterval(() => {
-      this.updateObstaclePositions();
-    }, 30); 
+    this.setInitialGameStats()
 
-    this.startTime = Date.now(); // Record the start time when the game begins
-    this.calculatedScore=null;
+   
   }
 
   ngOnDestroy() {
-    clearInterval(this.obstacleUpdateInterval);
+    this.clearAllIntervals()
     this.signalRService.removeAllListeners();
     this.renderer.removeClass(document.body, 'bg-car-game');
   }
@@ -92,9 +90,8 @@ export class CarGameComponent implements OnInit, OnDestroy {
         obstacle.y = 0;
         obstacle.x = Math.random() * window.innerWidth-this.obstacleDimension.x;
          this.lives -=1;
-         if(this.lives<=0){
-          this.gameOver = true;
-          clearInterval(this.obstacleUpdateInterval);
+         if(this.lives <= 0){
+          this.gameOverFoo();
          }
       }
     }
@@ -127,28 +124,32 @@ export class CarGameComponent implements OnInit, OnDestroy {
     this.router.navigate(['pc-lobby', this.roomId]);
   }
 
-  playAgain(): void {
+  setInitialGameStats(): void {
     // Reset game state and navigate to the game component again
     this.lives = 5;
+    this.score = 0;
     this.gameOver = false;
     this.obstacles = this.generateRandomObstacles();
+
     this.obstacleUpdateInterval = setInterval(() => {
       this.updateObstaclePositions();
-    }, 30);
+    }, this.obstacleUpdateTime);
+
+   
+    this.scoringInterval = setInterval(() => {
+      this.score++;
+    }, 1000);
   }
 
 
-  calculateScore(): number {
-    if (this.gameOver && this.calculatedScore === null) {
-      // Calculate the score based on the time of survival only once
-      const endTime = Date.now();
-      const elapsedTimeInSeconds = (endTime - this.startTime) / 1000; // Convert to seconds
-
-      // 1 point for every second survived
-      this.calculatedScore = Math.round(elapsedTimeInSeconds);
-    }
-
-    return this.calculatedScore || 0; // Return the calculated score or 0 if it's null
+  gameOverFoo(){
+    this.gameOver=true
+    this.clearAllIntervals();
   }
 
+
+  clearAllIntervals(){
+    clearInterval(this.obstacleUpdateInterval);
+    clearInterval(this.scoringInterval);
+  }
 }

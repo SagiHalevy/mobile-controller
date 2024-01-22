@@ -8,11 +8,12 @@
     <div>
       <div class="car" [style.transform]="'translate(' + carPosition.x + 'px, ' + carPosition.y + 'px)'"></div>
       <div *ngFor="let obstacle of obstacles" class="obstacle" [style.transform]="'translate(' + obstacle.x + 'px, ' + obstacle.y + 'px)'"></div>
-      <p>Alpha: {{ orientationData?.alpha | number: '1.2-2' }}</p>
+      <!-- <p>Alpha: {{ orientationData?.alpha | number: '1.2-2' }}</p>
       <p>Beta: {{ orientationData?.beta | number: '1.2-2' }}</p>
       <p>Gamma: {{ orientationData?.gamma | number: '1.2-2' }}</p>
       <p>X: {{ carPosition.x | number: '1.2-2' }}</p>
-      <p>Y: {{ carPosition.y | number: '1.2-2' }}</p>
+      <p>Y: {{ carPosition.y | number: '1.2-2' }}</p> -->
+      <p>Score: {{ score }}</p>
     </div>
   </div>
   
@@ -20,10 +21,10 @@
   <ng-template #gameOverTemplate>
     <div class="game-over-container">
       <h2>Game Over</h2>
-      <p>Your score: {{ calculateScore() }}</p>
+      <p>Your score: {{ score }}</p>
       <div class="button-container">
         <button class="return-button" (click)="returnToLobby()">Return to Lobby</button>
-        <button class="play-again-button" (click)="playAgain()">Play Again</button>
+        <button class="play-again-button" (click)="setInitialGameStats()">Play Again</button>
       </div>
     </div>
   </ng-template>

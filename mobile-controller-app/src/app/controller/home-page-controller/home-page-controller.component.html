@@ -1,6 +1,10 @@
-<h1>Mobile device detected</h1>
 
-<div>
-    <input [(ngModel)]="roomId" placeholder="Enter room Id" />
-    <button (click)="joinRoom()">Join Room</button>
+<div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="w-100 h-100 p-5 d-flex flex-column align-items-center justify-content-center bg-primary bg-gradient">
+        <h1 class="mb-4 text-center text-white">Mobile device detected</h1>
+        <input class="form-control form-control-lg" [(ngModel)]="roomId" placeholder="Enter room Id" />
+        <div class="mt-5">
+            <button (click)="joinRoom()" class="text-center btn btn-primary btn-lg border">Join Room</button>    
+        </div>
+    </div>
 </div>
