@@ -1,47 +1,101 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using mobile_remote_server.Classes;
 
 namespace mobile_remote_server
 {
+   
     public class ConnectionHub : Hub
     {
-        private static readonly Dictionary<string, List<string>> RoomUsers = new Dictionary<string, List<string>>();
+        // <(roomId,),listOfClients>
+        private static readonly Dictionary<RoomKey, List<string>> RoomUsers = new Dictionary<RoomKey, List<string>>();
 
         public async Task CreateRoom() {
+            //check if the client is already in a room
+            var roomKey = RoomUsers.FirstOrDefault(x => x.Value.Contains(Context.ConnectionId)).Key;
+            if (roomKey != null)
+            {
+                await Console.Out.WriteLineAsync($"Room creation failed! Client is already in room {roomKey.RoomId}!");
+                await Clients.Client(Context.ConnectionId).SendAsync("Message", $"Room creation failed! Client is already in room {roomKey.RoomId}!");
+                return;
+            }
 
             Random rnd = new Random();
+            string roomId;
             //var roomId = Guid.NewGuid().ToString("N");
-            var roomId = rnd.Next(1, 100).ToString();
+
+            //ensure the new roomId is not already exist
+            do
+            {
+                roomId = rnd.Next(1, 100).ToString();
+            }
+            while (RoomUsers.Keys.Any(roomKey => roomKey.RoomId == roomId));
+
+           
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
             await Console.Out.WriteLineAsync($"Room Created: {roomId}");
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
-            RoomUsers[roomId] = new List<string> { Context.ConnectionId };
+            var client = new RoomKey { RoomId = roomId, CreatorConnectionId = Context.ConnectionId };
+            RoomUsers[client] = new List<string> { Context.ConnectionId };
 
             await Clients.Caller.SendAsync("ReceiveRoomId", roomId);
+
+            foreach (var room in RoomUsers.Keys)
+            {
+                await Console.Out.WriteLineAsync($"Room Id:{room.RoomId}\nCreator:{room.CreatorConnectionId}\nAllUsers:");
+                foreach (var user in RoomUsers[room])
+                {
+                    await Console.Out.WriteLineAsync(user+"\n");
+                }
+            }
+            
+            await Console.Out.WriteLineAsync("\n\n");
         }
 
 
         public async Task JoinRoom(string roomId)
         {
-            if (!string.IsNullOrEmpty(roomId) && RoomUsers.TryGetValue(roomId, out var users))
+            //check if the client is already in a room
+            var roomKey = RoomUsers.FirstOrDefault(x => x.Value.Contains(Context.ConnectionId)).Key;
+            if (roomKey != null)
             {
-                if (users.Count < 2)
-                {
-                    users.Add(Context.ConnectionId);
-                    await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
-                    Console.WriteLine($"User joined room: {roomId}");
-                    await Clients.All.SendAsync("ReceiveSuccessJoin", roomId);
-                    await Clients.All.SendAsync("ControllerSuccessJoin");
+                await Console.Out.WriteLineAsync($"Room joining failed! Client is already in room {roomKey.RoomId}!");
+                return;
+            }
+
+            // check if roomId exist
+            var existingRoomKey = RoomUsers.Keys.FirstOrDefault(roomKey=>roomKey.RoomId == roomId);
+            if (string.IsNullOrEmpty(roomId) || existingRoomKey == null)
+            {
+                await Console.Out.WriteLineAsync($"Room {roomId} does not exist or is invalid");
+                await Clients.Client(Context.ConnectionId).SendAsync("Message", $"Room {roomId} does not exist or is invalid");
+                return;
+            }
+
+            var users = RoomUsers[existingRoomKey];
+            if (users.Count != 1 || users[0] != existingRoomKey.CreatorConnectionId)//only the room creator must be there
+            {
+                await Console.Out.WriteLineAsync($"Room {roomId} is already full.");
+                await Clients.Client(Context.ConnectionId).SendAsync("Message", $"Room {roomId} is already full.");
+                return;
+            }
+         
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+            users.Add(Context.ConnectionId);
+            Console.WriteLine($"User joined room: {roomId}");
+            await Clients.All.SendAsync("ReceiveSuccessJoin", roomId);
+            await Clients.All.SendAsync("ControllerSuccessJoin");
                     
-                }
-                else
-                {
-                    Console.WriteLine($"Room {roomId} is already full.");
-                }
-            }
-            else
+
+            foreach (var room in RoomUsers.Keys)
             {
-                Console.WriteLine($"Room does not exist or is invalid: {roomId}");
+                await Console.Out.WriteLineAsync($"Room Id:{room.RoomId}\nCreator:{room.CreatorConnectionId}\nAllUsers:");
+                foreach (var user in RoomUsers[room])
+                {
+                    await Console.Out.WriteLineAsync(user + "\n");
+                }
             }
+
+            await Console.Out.WriteLineAsync("\n\n");
         }
 
         public async Task SendMessage(string user, string message)
@@ -52,10 +106,6 @@ namespace mobile_remote_server
 
         public async Task SendOrientation(object orientationData)
         {
-
-            /* await Console.Out.WriteLineAsync("something orieneteiaton");
-             await Console.Out.WriteLineAsync(orientationData.ToString());*/
-            await Console.Out.WriteLineAsync("send orintiano");
             await Clients.AllExcept(Context.ConnectionId).SendAsync("ReceiveOrientation", orientationData);
         }
 
@@ -63,45 +113,50 @@ namespace mobile_remote_server
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             // Log the exception
-            Console.WriteLine($"Client disconnected with error: {exception?.Message}");
+            await Console.Out.WriteLineAsync($"Client {Context.ConnectionId} has disconnected");
 
-            // Check if the disconnected user is in any room
-            var roomId = RoomUsers.FirstOrDefault(x => x.Value.Contains(Context.ConnectionId)).Key;
-            await Console.Out.WriteLineAsync(roomId);
-            if (!string.IsNullOrEmpty(roomId))
+            // Check on which room the disconnected user was at
+            var roomKey = RoomUsers.FirstOrDefault(x => x.Value.Contains(Context.ConnectionId)).Key;
+            if (roomKey != null)
             {
-                await Console.Out.WriteLineAsync(RoomUsers[roomId][0]);
-                
-                // If the room is empty, remove it
-                if (RoomUsers[roomId].Count == 0)
-                {
-                    RoomUsers.Remove(roomId);
-                    Console.WriteLine($"Room {roomId} removed due to the creator disconnecting.");
-                }
-                else if (RoomUsers[roomId][0] == Context.ConnectionId)  // Check if the disconnected user is the room creator
-                {
-                    // Disconnect all joiners
-                    foreach (var joinerConnectionId in RoomUsers[roomId])
-                    {
-                        await Clients.Client(joinerConnectionId).SendAsync("RoomCreatorDisconnected");
-                        // Disconnect each joiner
-                        await Groups.RemoveFromGroupAsync(joinerConnectionId, roomId);
-                    }
 
-                    // Remove the room from tracking
-                    RoomUsers.Remove(roomId);
-                    Console.WriteLine($"Room {roomId} removed due to the creator disconnecting, and all joiners were disconnected.");
-                }
-                else // Remove the user from the room
+                if (Context.ConnectionId == roomKey.CreatorConnectionId)  // Check if the disconnected user is the room creator
                 {
-                    await Clients.Client(RoomUsers[roomId][0]).SendAsync("ControllerDisconnected");
-                    RoomUsers[roomId].Remove(Context.ConnectionId);
+                    // Disconnect all joiners (I'm not using foreach because it's not possible while removing from the iterated list)
+                    for (int i = RoomUsers[roomKey].Count - 1; i >= 0; i--)
+                    {
+                        var joinerConnectionId = RoomUsers[roomKey][i];
+                        await Clients.Client(joinerConnectionId).SendAsync("RoomCreatorDisconnected");
+                        await Groups.RemoveFromGroupAsync(joinerConnectionId, roomKey.RoomId);
+                        RoomUsers[roomKey].Remove(joinerConnectionId);
+                    }
+                }
+                else
+                {
+                    RoomUsers[roomKey].Remove(Context.ConnectionId);
+                    await Clients.Client(roomKey.CreatorConnectionId).SendAsync("ControllerDisconnected");
+                }
+                
+                // If the room is empty, remove the room from tracking
+                if (RoomUsers[roomKey].Count <=0)
+                {
+                    RoomUsers.Remove(roomKey);
+                }
+
+            }
+
+            foreach (var room in RoomUsers.Keys)
+            {
+                await Console.Out.WriteLineAsync($"Room Id:{room.RoomId}\nCreator:{room.CreatorConnectionId}\nAllUsers:");
+                foreach (var user in RoomUsers[room])
+                {
+                    await Console.Out.WriteLineAsync(user + "\n");
                 }
             }
 
+            await Console.Out.WriteLineAsync("\n\n");
             await base.OnDisconnectedAsync(exception);
         }
-
 
     }
 }

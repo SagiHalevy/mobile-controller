@@ -20,7 +20,7 @@ export class LobbyControllerComponent {
     });
     this.signalRService.addRoomCreatorDisconnectedListener(()=>{
       console.log("room creator has disconnected(Redirecting to home page)");
-      this.router.navigate(['']);
+      this.router.navigate(['controller']);
       
     })  
     window.addEventListener('deviceorientation', this.orientationEventListener);

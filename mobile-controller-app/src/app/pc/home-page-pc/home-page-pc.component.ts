@@ -16,6 +16,7 @@ export class HomePagePcComponent implements OnInit, OnDestroy {
   constructor(private signalRService: PcService, private router:Router,private renderer: Renderer2) {}
 
   ngOnInit() {
+    this.signalRService.disconnectHubIfConnected()
     this.renderer.addClass(document.body, 'bg-gradient-home');
   }
   ngOnDestroy() {
@@ -26,7 +27,6 @@ export class HomePagePcComponent implements OnInit, OnDestroy {
 
   //Establish web-socket connection and retrieve room ID from the server
   async createRoom(){
-    if (!this.signalRService.isConnectionEstablished()) {
       await this.signalRService.startConnection();
 
       this.signalRService.addCreateRoomListener((newRoomId) => {
@@ -35,7 +35,6 @@ export class HomePagePcComponent implements OnInit, OnDestroy {
       
       this.signalRService.createRoom();
     }
-  }
 
 
 }

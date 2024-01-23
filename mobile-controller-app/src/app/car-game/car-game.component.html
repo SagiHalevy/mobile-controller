@@ -14,6 +14,7 @@
       <p>X: {{ carPosition.x | number: '1.2-2' }}</p>
       <p>Y: {{ carPosition.y | number: '1.2-2' }}</p> -->
       <p>Score: {{ score }}</p>
+      <button class="return-button" (click)="returnToLobby()">Return to Lobby</button>
     </div>
   </div>
   
@@ -24,12 +25,17 @@
       <p>Your score: {{ score }}</p>
       <div class="button-container">
         <button class="return-button" (click)="returnToLobby()">Return to Lobby</button>
-        <button class="play-again-button" (click)="setInitialGameStats()">Play Again</button>
+        <button class="play-again-button" (click)="startNewGame()">Play Again</button>
       </div>
     </div>
   </ng-template>
 </div>
-<!-- Waiting controller template -->
+
+
+
+
+<!-- Waiting controller template (THIS IS NOT IN USE ANYMORE, INSTEAD WE'LL DIRECT TO LOBBY) -->
 <ng-template #waitingControllerTemplate>
-  <p>Controller disconnected!</p>
+  <h1 class="text-bg-danger">Controller disconnected!</h1>
+  <button class="return-button" (click)="returnToLobby()">Return to Lobby</button>
 </ng-template>

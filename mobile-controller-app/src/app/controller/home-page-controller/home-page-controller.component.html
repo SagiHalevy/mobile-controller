@@ -1,6 +1,7 @@
 
 <div class="h-100 d-flex align-items-center justify-content-center">
     <div class="w-100 h-100 p-5 d-flex flex-column align-items-center justify-content-center bg-primary bg-gradient">
+        <h6 *ngIf="messageFromTheServer !== null" class="alert alert-danger" role="alert"> {{messageFromTheServer}}</h6>
         <h1 class="mb-4 text-center text-white">Mobile device detected</h1>
         <input class="form-control form-control-lg" [(ngModel)]="roomId" placeholder="Enter room Id" />
         <div class="mt-5">

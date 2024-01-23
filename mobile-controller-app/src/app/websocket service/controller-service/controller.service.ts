@@ -20,11 +20,12 @@ export class ControllerService {
       throw error; // Re-throw the error to propagate it in the promise chain
     }
   };
-
-  // Check if the connection is established
-  isConnectionEstablished() {
-    return this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected;
+  disconnectHubIfConnected() {
+    if(this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected){
+      this.hubConnection.stop();
+    }
   }
+
 
   //listeners
   addJoinRoomListener = (callback: (roomId: string) => void) => {
@@ -37,7 +38,11 @@ export class ControllerService {
       callback();
     });
   };
-
+  addGetMessageListener = (callback: (message:string) => void) => {
+    this.hubConnection.on('Message', (message) => {
+      callback(message);
+    });
+  };
 
 
 
@@ -65,6 +70,7 @@ joinRoom = (roomId: string) => {
     if(this.hubConnection){
       this.hubConnection.off('ReceiveSuccessJoin'); 
       this.hubConnection.off('RoomCreatorDisconnected'); 
+      this.hubConnection.off('Message'); 
     }
   }
 

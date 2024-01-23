@@ -11,7 +11,7 @@ export class PcService {
       this.hubConnection = new signalR.HubConnectionBuilder()
         .withUrl('https://localhost:7154/orientationHub') 
         .build();
-  
+
       await this.hubConnection.start();
       console.log('Connection started');
     } catch (error) {
@@ -20,13 +20,13 @@ export class PcService {
     }
   };
 
-  // Check if the connection is established
-  isConnectionEstablished() {
-    return this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected;
+  disconnectHubIfConnected() {
+    if(this.hubConnection && this.hubConnection.state === signalR.HubConnectionState.Connected){
+      this.hubConnection.stop();
+    }
   }
 
-
-
+ 
 
   //listeners
   addOrientationListener = (callback: (orientationData: any) => void) => {

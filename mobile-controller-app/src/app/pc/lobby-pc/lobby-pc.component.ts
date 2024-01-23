@@ -17,11 +17,12 @@ export class LobbyPcComponent  implements OnInit, OnDestroy  {
   roomId:string = '';
   orientationData:any;
 
-
   constructor(private route:ActivatedRoute,public signalRService: PcService, private router:Router,private renderer: Renderer2){}
 
   ngOnInit(){
     this.renderer.addClass(document.body, 'bg-gradient-lobby');
+     // Retrieve the disconnection message from the navigation state
+
     this.route.params.subscribe(params => {     
       this.roomId = params['roomId'];   
     });

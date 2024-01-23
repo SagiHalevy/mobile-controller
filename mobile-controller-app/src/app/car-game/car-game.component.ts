@@ -35,7 +35,6 @@ export class CarGameComponent implements OnInit, OnDestroy {
   obstacleMinSpeed = 6;
   obstacleMaxSpeed = 10;
   obstacles: any[] = []; //container for the obstacles objects that are  reused
-
   score: number=0;
 
   ngOnInit() {
@@ -53,9 +52,10 @@ export class CarGameComponent implements OnInit, OnDestroy {
     this.signalRService.addControllerDisconnectedListener(() => {
       console.log("controller has disconnected");
       this.signalRService.controllerConnected = false;
+      this.returnToLobby();
     });
 
-    this.setInitialGameStats()
+    this.startNewGame()
 
    
   }
@@ -124,7 +124,7 @@ export class CarGameComponent implements OnInit, OnDestroy {
     this.router.navigate(['pc-lobby', this.roomId]);
   }
 
-  setInitialGameStats(): void {
+  startNewGame(): void {
     // Reset game state and navigate to the game component again
     this.lives = 5;
     this.score = 0;
@@ -147,6 +147,7 @@ export class CarGameComponent implements OnInit, OnDestroy {
     this.clearAllIntervals();
   }
 
+  
 
   clearAllIntervals(){
     clearInterval(this.obstacleUpdateInterval);
