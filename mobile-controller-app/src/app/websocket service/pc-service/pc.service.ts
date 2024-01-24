@@ -10,6 +10,7 @@ export class PcService {
     try {
       this.hubConnection = new signalR.HubConnectionBuilder()
         .withUrl('https://localhost:7154/orientationHub') 
+        //.withUrl('https://mobile-remote-server20240124183535.azurewebsites.net/orientationHub') 
         .build();
 
       await this.hubConnection.start();

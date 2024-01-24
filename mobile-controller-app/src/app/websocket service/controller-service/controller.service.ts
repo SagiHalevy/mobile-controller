@@ -10,7 +10,8 @@ export class ControllerService {
   startConnection = async ()=> {
     try {
       this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:7154/orientationHub') 
+        .withUrl('https://192.168.1.16:5001/orientationHub') 
+        //.withUrl('https://mobile-remote-server20240124183535.azurewebsites.net/orientationHub') 
         .build();
   
       await this.hubConnection.start();

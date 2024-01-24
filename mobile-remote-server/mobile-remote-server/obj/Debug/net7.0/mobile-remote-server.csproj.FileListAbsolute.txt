@@ -48,3 +48,4 @@ C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-
 C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Debug\net7.0\mobile-remote-server.pdb
 C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Debug\net7.0\mobile-remote-server.genruntimeconfig.cache
 C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Debug\net7.0\ref\mobile-remote-server.dll
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\bin\Debug\net7.0\mobile-remote-server.staticwebassets.runtime.json

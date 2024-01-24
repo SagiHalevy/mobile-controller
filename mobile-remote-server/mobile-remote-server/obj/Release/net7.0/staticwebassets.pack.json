@@ -1,0 +1,77 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\car.png",
+      "PackagePath": "staticwebassets\\assets\\media\\car.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\carr.jpg",
+      "PackagePath": "staticwebassets\\assets\\media\\carr.jpg"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\carr.png",
+      "PackagePath": "staticwebassets\\assets\\media\\carr.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\newcar.png",
+      "PackagePath": "staticwebassets\\assets\\media\\newcar.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\newcarcropped.png",
+      "PackagePath": "staticwebassets\\assets\\media\\newcarcropped.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\newroad.png",
+      "PackagePath": "staticwebassets\\assets\\media\\newroad.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\road.png",
+      "PackagePath": "staticwebassets\\assets\\media\\road.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\assets\\media\\road2.png",
+      "PackagePath": "staticwebassets\\assets\\media\\road2.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\main-E2YG3LEU.js",
+      "PackagePath": "staticwebassets\\main-E2YG3LEU.js"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\media\\newroad-FOHGNOPB.png",
+      "PackagePath": "staticwebassets\\media\\newroad-FOHGNOPB.png"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\polyfills-RX4V3J3S.js",
+      "PackagePath": "staticwebassets\\polyfills-RX4V3J3S.js"
+    },
+    {
+      "Id": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\styles-YMFHLSS4.css",
+      "PackagePath": "staticwebassets\\styles-YMFHLSS4.css"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.build.mobile-remote-server.props",
+      "PackagePath": "build\\mobile-remote-server.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.mobile-remote-server.props",
+      "PackagePath": "buildMultiTargeting\\mobile-remote-server.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildTransitive.mobile-remote-server.props",
+      "PackagePath": "buildTransitive\\mobile-remote-server.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.mobile-remote-server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

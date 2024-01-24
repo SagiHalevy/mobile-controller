@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "mobile-remote-server/1.0.0": {
+        "runtime": {
+          "mobile-remote-server.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "mobile-remote-server/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

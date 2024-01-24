@@ -1,0 +1,7 @@
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\mobile-remote-server.exe
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\appsettings.json
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\mobile-remote-server.dll
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\mobile-remote-server.deps.json
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\mobile-remote-server.runtimeconfig.json
+C:\Users\sagi1\Desktop\git\mobile-controller\mobile-remote-server\mobile-remote-server\obj\Release\net7.0\PubTmp\Out\mobile-remote-server.pdb
