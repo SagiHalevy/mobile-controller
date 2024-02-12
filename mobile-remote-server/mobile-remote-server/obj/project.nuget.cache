@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "f2lImZU9eEBGEw+jFzdy83S9Dx328oPMDgmvZ4/LlvFe5kU21i4z6Hdpt/XfA68bYRYfgnpHzvwNJVDmYejWfQ==",
+  "dgSpecHash": "r+7HX8eMPoYm+0qkHXsYC7AgEjJJyiPElVbWNBj86Q+n76jkgipVT2xhZOxX6TZFFm6K7L2tELkSytzdrSVvng==",
   "success": true,
   "projectFilePath": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\mobile-remote-server.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\sagi1\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512"
+  ],
   "logs": []
 }

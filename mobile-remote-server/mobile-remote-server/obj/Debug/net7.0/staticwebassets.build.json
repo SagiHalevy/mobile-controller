@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZuASCvDK80B5gdEDzELhaK8dEDWuzT8k4QiHXkILADQ=",
+  "Hash": "eWiM53RMlTEupSWm5FPx/SeBcNSJRUMIXK2BPDiRtDA=",
   "Source": "mobile-remote-server",
   "BasePath": "_content/mobile-remote-server",
   "Mode": "Default",
@@ -187,12 +187,12 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\main-6ENMYA3S.js",
+      "Identity": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\main-DAZWO5VF.js",
       "SourceId": "mobile-remote-server",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\",
       "BasePath": "_content/mobile-remote-server",
-      "RelativePath": "main-6ENMYA3S.js",
+      "RelativePath": "main-DAZWO5VF.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -201,7 +201,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\main-6ENMYA3S.js"
+      "OriginalItemSpec": "wwwroot\\main-DAZWO5VF.js"
     },
     {
       "Identity": "C:\\Users\\sagi1\\Desktop\\git\\mobile-controller\\mobile-remote-server\\mobile-remote-server\\wwwroot\\media\\newroad-FOHGNOPB.png",

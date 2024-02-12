@@ -9,7 +9,8 @@ export class PcService {
   startConnection = async ()=> {
     try {
       this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:7154/orientationHub') 
+        //.withUrl('https://localhost:7154/orientationHub') 
+        .withUrl('https://localhost:32768/orientationHub') //docker
         //.withUrl('https://mobile-remote-server20240124183535.azurewebsites.net/orientationHub') 
         .build();
 
